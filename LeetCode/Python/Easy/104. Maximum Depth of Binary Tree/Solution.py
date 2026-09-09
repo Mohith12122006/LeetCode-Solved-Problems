@@ -19,6 +19,6 @@ class Solution:
         while curr:
             curr = curr.right
             right += 1
-        return max(left,right)
+        return max(left,right)+1
 
         
