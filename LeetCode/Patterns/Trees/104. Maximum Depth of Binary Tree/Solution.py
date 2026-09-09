@@ -1,3 +1,4 @@
+from collections import deque
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -6,19 +7,19 @@
 #         self.right = right
 class Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
-        if not root: return 0
+        if not root:
+            return 0
 
-        left = 0
-        right = 0
-        curr = root
-        while curr:
-            curr = curr.left
-            left += 1
+        level = 0
+        queue = deque([root])
+        while queue:
+            for i in range(len(queue)):
+                node = queue.popleft()
+                if node.left is not None:
+                    queue.append(node.left)
+                if node.right is not None:
+                    queue.append(node.right)
+            
+            level += 1
         
-        curr = root
-        while curr:
-            curr = curr.right
-            right += 1
-        return max(left,right)
-
-        
+        return level
